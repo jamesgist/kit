@@ -55,6 +55,7 @@ func main() {
 	http.Handle("/uppercase", uppercaseHandler)
 	http.Handle("/count", countHandler)
 	http.Handle("/metrics", promhttp.Handler())
-	logger.Log("msg", "HTTP", "addr", ":8080")
-	logger.Log("err", http.ListenAndServe(":8080", nil))
+	port := "0.0.0.0:8000"
+	logger.Log("msg", "HTTP", "addr", port)
+	logger.Log("err", http.ListenAndServe(port, nil))
 }

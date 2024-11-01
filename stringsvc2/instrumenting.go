@@ -16,6 +16,7 @@ type instrumentingMiddleware struct {
 
 func (mw instrumentingMiddleware) Uppercase(s string) (output string, err error) {
 	defer func(begin time.Time) {
+		// The lvs variable is a slice of key/value pairs that we'll use to tag our metrics.
 		lvs := []string{"method", "uppercase", "error", fmt.Sprint(err != nil)}
 		mw.requestCount.With(lvs...).Add(1)
 		mw.requestLatency.With(lvs...).Observe(time.Since(begin).Seconds())
